@@ -1,0 +1,70 @@
+<!-- @format -->
+
+<div class="backdrop-modal is-hidden" id="modal-order-js">
+  <div class="modal-order-container">
+    <div class="modal-button-close" id="modal-order-closer">
+      <svg class="modal-icon-close">
+        <use href="./img/icon/icon.svg#icon-close"></use>
+      </svg>
+    </div>
+    <h1 class="modal-order-title">Order now</h1>
+
+    <form class="modal-order-form">
+      <label class="modal-order-label" for="modal-order-name"
+        >Name
+
+        <input
+          required
+          name="name"
+          class="modal-order-input"
+          type="text"
+          id="modal-order-name"
+          pattern="^[a-zA-Z]+\s[a-zA-Z]+$"
+          title="Username should only contain letters "
+        />
+      </label>
+      <label class="modal-order-label" for="modal-order-tel"
+        >Phone number
+
+        <input
+          required
+          name="phone"
+          class="modal-order-input"
+          type="tel"
+          id="modal-order-tel"
+        />
+      </label>
+
+      <label class="modal-order-label" for="modal-order-mail"
+        >Email
+
+        <input
+          required
+          name="email"
+          class="modal-order-input"
+          type="mail"
+          id="modal-order-mail"
+          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+        />
+      </label>
+      <label class="modal-order-label" for="modal-order-comment"
+        >Comment
+        <div class="modal-order-textarea">
+          <textarea
+            name="comment"
+            class="modal-order-input textarea"
+            id="modal-order-comment"
+          ></textarea>
+        </div>
+      </label>
+      <!-- <button class="modal-button" type="submit">Send</button> -->
+      <load
+        src="./component/button.html"
+        class="modal-submit-button-order"
+        type="submit"
+        name-button="Send"
+        id="modal-submit-button-order"
+      />
+    </form>
+  </div>
+</div>

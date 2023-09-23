@@ -1,0 +1,104 @@
+<div class="filter-container">
+  <form class="filters-search-form" id="search-form">
+    <div class="filter-search-container">
+      <label class="filters-lable" for="input-search-field">Search</label>
+      <div class="filter-serarch-thumb">
+        <svg class="filter-icon-search" id="filter-icon-s">
+          <use href="./img/icon/icon.svg#icon-search"></use>
+        </svg>
+        <input
+          id="input-search-field"
+          class="filter-search-field"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Enter Text"
+        />
+        <button class="filter-search-close-btn is-hidden" type="button">
+          <svg class="icon-close-search">
+            <use href="./img/icon/icon.svg#icon-close"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-time-container">
+      <label class="filters-lable" for="time-input">Time</label>
+      <div class="time-dropdown">
+        <input
+          id="time-input"
+          class="time-text-box"
+          type="text"
+          placeholder="0 min"
+          readonly
+        />
+        <div class="filter-time-dropbox">
+          <ul class="filter-time-list">
+            <li class="list-item js-item">5 min</li>
+            <li class="list-item js-item">10 min</li>
+            <li class="list-item js-item">15 min</li>
+            <li class="list-item js-item">20 min</li>
+            <li class="list-item js-item">25 min</li>
+            <li class="list-item js-item">30 min</li>
+            <li class="list-item js-item">35 min</li>
+            <li class="list-item js-item">40 min</li>
+            <li class="list-item js-item">45 min</li>
+            <li class="list-item js-item">50 min</li>
+            <li class="list-item js-item">55 min</li>
+            <li class="list-item js-item">60 min</li>
+            <li class="list-item js-item">65 min</li>
+            <li class="list-item js-item">70 min</li>
+            <li class="list-item js-item">75 min</li>
+            <li class="list-item js-item">80 min</li>
+            <li class="list-item js-item">85 min</li>
+            <li class="list-item js-item">90 min</li>
+            <li class="list-item js-item">95 min</li>
+            <li class="list-item js-item">100 min</li>
+            <li class="list-item js-item">105 min</li>
+            <li class="list-item js-item">110 min</li>
+            <li class="list-item js-item">115 min</li>
+            <li class="list-item js-item">120 min</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-country-container">
+      <label class="filters-lable" for="country-input">Area</label>
+      <div class="country-dropdown">
+        <input
+          id="country-input"
+          class="country-text-box"
+          type="text"
+          placeholder="Region"
+          readonly
+        />
+        <div class="filter-country-dropbox">
+          <ul class="filter-country-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-ingr-container">
+      <label class="filters-lable" for="ingr-input">Ingredients</label>
+      <div class="ingr-dropdown">
+        <input
+          id="ingr-input"
+          class="ingr-text-box"
+          type="text"
+          placeholder="Product"
+          readonly
+        />
+        <div class="filter-ingr-dropbox">
+          <ul class="filter-ingr-list"></ul>
+        </div>
+      </div>
+    </div>
+  </form>
+  <button type="button" class="filter-reset-btn">
+    <svg class="filter-reset">
+      <use href="./img/icon/icon.svg#icon-close"></use>
+    </svg>
+    Reset the filter
+  </button>
+</div>
