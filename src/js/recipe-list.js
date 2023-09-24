@@ -1,9 +1,5 @@
-/** @format */
-
 import { Notify, Loading } from 'notiflix';
 import sprite from '../img/icon/icon.svg';
-
-
 import { handleLikeBtn } from './add_favorites';
 import { createCard } from './recipe-card';
 import { onOpenWindow } from './recipe';
@@ -12,9 +8,10 @@ import { handleScroll } from './loading';
 
 const pagination = document.querySelector('.pagination-btns');
 const recipeCards = document.querySelector('.recipe-cards');
-export const recipesApi = 'https://tasty-treats-backend.p.goit.global/api/recipes';
-const cadrsContainer = document.querySelector('.recipe-cards');
-cadrsContainer.addEventListener('click', onOpenModalWindow);
+const recipesApi = 'https://tasty-treats-backend.p.goit.global/api/recipes';
+const cardsContainer = document.querySelector('.recipe-cards');
+
+cardsContainer.addEventListener('click', onOpenModalWindow);
 
 function renderCards(results, div, cardStyle) {
 	let htmlCards = '';
@@ -150,14 +147,14 @@ function setPaginationButtons(div, page, total, option) {
 	});
 }
 
-export async function renderMain(options) {
+async function renderMain(options) {
 	Loading.dots();
 	let responseData;
 	await fetchRecipeCards(recipesApi, options)
 	.then(data => {
 	responseData = data;
 	})
-	.catch(error => Notify.failure('Oops! Something went wrong! Try reloading the page!'))
+	.catch(() => Notify.failure('Oops! Something went wrong! Try reloading the page!'))
 	.finally(Loading.remove(1000));
 	renderCards(responseData.results, recipeCards, 'mainblock');
 	setPaginationButtons(
@@ -168,7 +165,7 @@ export async function renderMain(options) {
 	);
 }
 
-export let renderCardsOptions = {
+let renderCardsOptions = {
 	params: {
 		page: 1,
 		limit: 9,
@@ -192,3 +189,5 @@ window.addEventListener('resize', () => {
 	}
 	renderMain(renderCardsOptions);
 });
+
+export { renderMain, recipesApi, renderCardsOptions }

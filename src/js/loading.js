@@ -1,5 +1,3 @@
-/** @format */
-
 import throttle from 'lodash.throttle';
 
 window.addEventListener('scroll', throttle(handleScroll, 300));
@@ -12,7 +10,7 @@ function isElementInViewport(el) {
 	);
 }
 
-export function handleScroll() {
+function handleScroll() {
 	const recipeItem = document.querySelectorAll('.recipe-item');
 
 	recipeItem.forEach(item => {
@@ -28,8 +26,7 @@ export function handleScroll() {
 
 function changeUrl(item) {
 	const url = item.dataset.url;
-	item.style = `background: linear-gradient(1deg, rgba(5, 5, 5, 0.6) 4.82%, rgba(5, 5, 5, 0) 108.72%),
-			url(${url}), lightgray 50%; background-size: cover;"
-        >
-			<svg class="like js-like" width="22" height="22`;
+	item.style = `background: linear-gradient(1deg, rgba(5, 5, 5, 0.6) 4.82%, rgba(5, 5, 5, 0) 108.72%), url(${url}), lightgray 50%; background-size: cover;"><svg class="like js-like" width="22" height="22`;
 }
+
+export { handleScroll }

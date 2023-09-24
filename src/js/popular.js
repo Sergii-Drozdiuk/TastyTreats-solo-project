@@ -1,14 +1,9 @@
-/** @format */
-
 import { onOpenWindow } from './recipe';
 import { fetchPopulars } from './fetch-api';
-
 import Notiflix from 'notiflix';
 
 const popularList = document.querySelector(".popular-list")
 
-
-// Обработка данных, создание разметки в HTML
 fetchPopulars()
 	.then(data => {
 		let arrPopulars = [...data];
@@ -20,8 +15,6 @@ fetchPopulars()
 		Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
 	});
 
-
-// Функция для создания разметки
 function createPopularsMarcup(arr) {
 	return arr
 		.map(
@@ -50,7 +43,6 @@ function createPopularsMarcup(arr) {
 
 popularList.addEventListener('click', onPopularsListClick);
 
-// Функция для выбора рецепта
 function onPopularsListClick(evt) {
 	if (evt.target === evt.currentTarget) {
          return;
@@ -60,7 +52,6 @@ function onPopularsListClick(evt) {
 	const id = currentProduct.id;
 	onOpenWindow(id)
 }
-
 
 function addClass(arr) {
 	for (let i = 2; i < arr.length; i += 1){

@@ -1,20 +1,17 @@
-/** @format */
 import { renderMain } from './recipe-list';
 import { renderCardsOptions } from './recipe-list';
 import { fetchCategories } from './fetch-api.js';
 import { resetFilters } from './filters';
-
-// Подключаю axios, notiflix
 import Notiflix from 'notiflix';
 
 const list = document.querySelector('.categories-list');
 const allCategoriesBtn = document.querySelector('.all-categories-btn');
+
 allCategoriesBtn.classList.add('all-categories-btn-aktiv');
 let itemArr;
 
 renderMain(renderCardsOptions);
 
-// Обработка данных, создание списка категорий в HTML
 fetchCategories()
   .then(data => {
     let arrCategories = [...data];
@@ -29,8 +26,6 @@ fetchCategories()
     );
   });
 
-// Функция для создания списка
-
 function createCategoriesList(arr) {
   return arr
     .map(
@@ -40,11 +35,8 @@ function createCategoriesList(arr) {
     .join('');
 }
 
-// Ставлю прослушиватели на кнопку и список
 allCategoriesBtn.addEventListener('click', onAllCategoriesBtnClick);
 list.addEventListener('click', onListClick);
-
-// Функция для отображения всех категорий
 
 function onAllCategoriesBtnClick() {
   clearCurrentCategory(itemArr);
@@ -59,8 +51,6 @@ function onAllCategoriesBtnClick() {
   renderCardsOptions.params.ingredient = '';
   renderMain(renderCardsOptions);
 }
-
-// Функция для отображения одной категории
 
 function onListClick(evt) {
   if (evt.target === evt.currentTarget) {
@@ -84,7 +74,6 @@ function onListClick(evt) {
   return currentCategory;
 }
 
-// Функция для снятия выделения текущей категории
 function clearCurrentCategory(arr) {
   for (let i = 0; i < arr.length; i += 1) {
     if (arr[i].children[0].classList.contains('curent-category')) {

@@ -1,4 +1,3 @@
-/** @format */
 import sprite from '../img/icon/icon.svg';
 
 
@@ -25,7 +24,7 @@ function handleLikeBtn(evt) {
 	localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-function handleAddFavouriteBtn(evt) {
+function handleAddFavoriteBtn(evt) {
 	const favorites = JSON.parse(localStorage.getItem('favorites')) ?? [];
 
 	if (!evt.target.classList.contains('js-add-fav-btn')) {
@@ -36,7 +35,6 @@ function handleAddFavouriteBtn(evt) {
 	const idx = favorites.indexOf(recipeId);
 	const btn = evt.target.closest('button');
 
-	// get svg from the required element by id  //
 	const selectors = {
 		list: document.querySelector('.js-all-recipe-cards'),
 	};
@@ -51,7 +49,6 @@ function handleAddFavouriteBtn(evt) {
 			}
 		});
 	}
-	// **************************** //
 
 	if (recipeId) {
 		if (idx === -1) {
@@ -77,5 +74,4 @@ function handleAddFavouriteBtn(evt) {
 
 }
 
-export { handleLikeBtn };
-export { handleAddFavouriteBtn };
+export { handleLikeBtn, handleAddFavoriteBtn };

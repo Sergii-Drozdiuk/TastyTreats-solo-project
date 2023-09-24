@@ -1,5 +1,3 @@
-/** @format */
-
 const currentPageName = document.querySelector('[http-equiv]').getAttribute('content');
 const navigationLinksArray = Array.from(document.querySelectorAll('.nav-link'));
 

@@ -1,9 +1,8 @@
-/** @format */
 import sprite from '../img/icon/icon.svg';
 import { fetchGetId } from './fetch-api';
 import { ratingRecipe } from './rating-markup';
 
-export async function markupRecipe(id) {
+async function markupRecipe(id) {
 	const recipeData = await fetchGetId(id);
 	const { _id, title, instructions, thumb, youtube, time, tags, ingredients, rating } =
 		recipeData;
@@ -16,8 +15,6 @@ export async function markupRecipe(id) {
 	let idVideo = '';
 	let cursor = 'auto';
 
-	// added by IRyb //
-	// Додаю отримання масиву id з локалсториджа, щоб змінювати назву кнопки: якщо вже є у улюблених, то кнопка буде називатися Remove
 	const favorites = JSON.parse(localStorage.getItem('favorites')) ?? [];
 	let btnFavName = 'Add to favorite';
 
@@ -26,7 +23,6 @@ export async function markupRecipe(id) {
 	} else {
 		btnFavName = 'Remove favorite';
 	}
-	// --- //
 
 	if (index > 0) {
 		cursor = 'pointer';
@@ -92,3 +88,5 @@ export async function markupRecipe(id) {
     `;
 	return modWindow;
 }
+
+export { markupRecipe }

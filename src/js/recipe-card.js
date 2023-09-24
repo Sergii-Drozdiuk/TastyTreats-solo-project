@@ -1,8 +1,6 @@
-/** @format */
-
 import { ratingRecipe } from './rating-markup';
 
-export function createCard(card, className, status) {
+function createCard(card, className, status) {
 	const { _id, thumb, title, instructions, rating, category } = card;
 	return `<li 
 		data-id="${_id}" data-category="${category}" data-url="${thumb}" data-action="changeUrl"
@@ -28,3 +26,5 @@ export function createCard(card, className, status) {
 	    </div>
         </li>`;
 }
+
+export { createCard }

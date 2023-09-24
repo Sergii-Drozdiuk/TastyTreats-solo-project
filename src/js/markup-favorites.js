@@ -1,11 +1,9 @@
-/** @format */
-
 import { onOpenWindow } from './recipe';
 import { allCard, changeCurrentPage, cardInHtml, perPage, changeCountPage } from './favorites';
 import { handleScroll } from './loading';
 import sprite from '../img/icon/icon.svg';
 
-let activeCatigories = new Set();
+let activeCategories = new Set();
 
 const ref = {
 	cardsFavorites: document.querySelector('.list_cards_favorites'),
@@ -15,7 +13,7 @@ const ref = {
 
 ref.cardsFavorites.addEventListener('click', onOpenModalWindow);
 
-export function markupButtons(cards) {
+function markupButtons(cards) {
 	if (cards.length === 0) {
 		ref.categoriesFavorites.innerHTML = '';
 		return;
@@ -24,7 +22,7 @@ export function markupButtons(cards) {
 		card =>
 			`<li><button class="main-button recipe-item-see category-btn" type="button">${card}</button></li>`
 	);
-	const activeClass = activeCatigories.size === 0 ? 'green-button' : null;
+	const activeClass = activeCategories.size === 0 ? 'green-button' : null;
 	buttons.unshift(
 		`<li><button id="allcat" class="main-button recipe-item-see category-btn ${activeClass}" type="button">All categories</button></li>`
 	);
@@ -33,14 +31,12 @@ export function markupButtons(cards) {
 	ref.allCategories = document.querySelector('#allcat');
 }
 
-export function markupCards(cards, page, perPage) {
+function markupCards(cards, page, perPage) {
 	const start = (page - 1) * perPage;
 	const end = page * perPage;
 	const markupCardsArray = cardInHtml(cards);
 	const pageCardArray = markupCardsArray.slice(start, end);
-	pageCardArray.length
-		? (ref.cardsFavorites.innerHTML = pageCardArray.join(''))
-		: (ref.cardsFavorites.innerHTML = `<div class="not_favorites">
+	pageCardArray.length ? (ref.cardsFavorites.innerHTML = pageCardArray.join('')) : (ref.cardsFavorites.innerHTML = `<div class="not_favorites">
 						<svg class="favorites_elem_svg" width="68" height="58">
 							<use href="${sprite}#icon-elements"></use>
 						</svg>
@@ -66,41 +62,39 @@ function addFilter({ target }) {
 		}
 		for (let i = 0; i < cards.length; i++) {}
 		target.classList.add('green-button');
-		activeCatigories.clear();
+		activeCategories.clear();
 		cardFilterCategories(1);
 		return;
 	}
-	if (!activeCatigories.has(target.textContent)) {
-		activeCatigories.add(target.textContent);
+	if (!activeCategories.has(target.textContent)) {
+		activeCategories.add(target.textContent);
 		target.classList.add('green-button');
 		ref.allCategories.classList.remove('green-button');
 	} else {
-		activeCatigories.delete(target.textContent);
+		activeCategories.delete(target.textContent);
 		target.classList.remove('green-button');
 	}
-	if (!activeCatigories.size) {
+	if (!activeCategories.size) {
 		ref.allCategories.classList.add('green-button');
 	}
 	cardFilterCategories(1);
-	cardFavoritsFilter();
+	cardFavoritesFilter();
 }
 
-function cardFavoritsFilter() {
+function cardFavoritesFilter() {
 	const allButtonsActive = ref.categoriesFavorites.querySelectorAll('.green-button');
 	const allButton = ref.categoriesFavorites.children;
 	if (allButton.length - 1 === allButtonsActive.length) {
 		ref.allCategories.classList.add('green-button');
-		activeCatigories.clear();
+		activeCategories.clear();
 		for (const card of allButtonsActive) {
 			card.classList.remove('green-button');
 		}
 	}
 }
 
-export function cardFilterCategories(page) {
-	const filteredCard = activeCatigories.size
-		? allCard.filter(({ category }) => activeCatigories.has(category))
-		: allCard;
+function cardFilterCategories(page) {
+	const filteredCard = activeCategories.size ? allCard.filter(({ category }) => activeCategories.has(category)) : allCard;
 	markupCards(filteredCard, page, perPage);
 	changeCountPage(filteredCard.length);
 }
@@ -111,3 +105,5 @@ function onOpenModalWindow({ target }) {
 	}
 	onOpenWindow(target.dataset.id);
 }
+
+export { markupButtons, markupCards, cardFilterCategories }

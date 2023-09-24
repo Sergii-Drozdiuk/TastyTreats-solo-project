@@ -1,8 +1,6 @@
-/** @format */
-
 import { markupRecipe } from './markup-recipe';
 import { createListeners } from './rating';
-import { handleAddFavouriteBtn } from './add_favorites';
+import { handleAddFavoriteBtn } from './add_favorites';
 
 const ref = {
 	modalWindowRecipe: document.querySelector('.backdrop'),
@@ -13,7 +11,7 @@ const ref = {
 	favoriteBtn: null,
 };
 
-export async function onOpenWindow(id) {
+async function onOpenWindow(id) {
 	ref.modalWindowRecipe.innerHTML = await markupRecipe(id);
 	ref.modalWindowRecipe.classList.remove('is-hidden');
 
@@ -25,9 +23,8 @@ export async function onOpenWindow(id) {
 	ref.youtubeFrame = document.querySelector('.recipe-adv-youtube');
 	ref.iconPlay = document.querySelector('.recipe-youtube');
 	ref.recipeImg.addEventListener('click', viewYoutube);
-
 	ref.favoriteBtn = document.querySelector('.js-add-fav-btn');
-	ref.favoriteBtn.addEventListener('click', handleAddFavouriteBtn);
+	ref.favoriteBtn.addEventListener('click', handleAddFavoriteBtn);
 
 	document.addEventListener('keydown', onCloseModal);
 	document.addEventListener('click', onCloseModal);
@@ -40,7 +37,7 @@ function onCloseWindow() {
 	document.removeEventListener('keydown', onCloseModal);
 	document.removeEventListener('click', onCloseModal);
 	ref.recipeImg.removeEventListener('click', viewYoutube);
-	ref.favoriteBtn.removeEventListener('click', handleAddFavouriteBtn);
+	ref.favoriteBtn.removeEventListener('click', handleAddFavoriteBtn);
 }
 
 function onCloseModal({ target, key }) {
@@ -60,3 +57,5 @@ function viewYoutube({ currentTarget }) {
 		></iframe>`;
 	ref.iconPlay.style.display = 'none';
 }
+
+export { onOpenWindow }

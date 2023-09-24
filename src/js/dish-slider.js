@@ -11,7 +11,7 @@ const swiper = new Swiper('.dish-slider', {
     clickable: true,
   },
   autoplay: {
-    delay: 10000,
+    delay: 5000,
   },
   keyboard: {
     enabled: true,

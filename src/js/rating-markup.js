@@ -1,11 +1,9 @@
-/** @format */
-
 import sprite from '../img/icon/icon.svg';
 
-export function ratingRecipe(rating) {
+function ratingRecipe(rating) {
 	let markupRating = ``;
-	for (let index = 1; index <= 5; index++) {
-		if (index <= Math.round(rating)) {
+	for (let i = 1; i <= 5; i += 1) {
+		if (i <= Math.round(rating)) {
 			markupRating += `<li class="recipe-item-rating-star">
 						<svg class="stars-full">
 							<use href="${sprite}#icon-star"></use>
@@ -21,3 +19,5 @@ export function ratingRecipe(rating) {
 	}
 	return markupRating;
 }
+
+export { ratingRecipe }

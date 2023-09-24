@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { debounce } from 'debounce';
-
 import { renderMain } from './recipe-list';
 import { renderCardsOptions } from './recipe-list';
 import { fetchAreas, fetchIngred } from './fetch-api';
@@ -23,12 +21,11 @@ const elements = {
 };
 
 elements.input.addEventListener('input', debounce(onHendlerPress, 300));
-
 elements.timeOptions.addEventListener('click', onTimeOptionsClick);
 elements.countryOptions.addEventListener('click', onCountryOptionsClick);
 elements.ingrOptions.addEventListener('click', onIngrOptionsClick);
 
-// <<<render gallery by search value>>>
+// render gallery by search
 function onHendlerPress(evt) {
   let searchValue = evt.target.value.trim().toLowerCase();
 
@@ -52,16 +49,11 @@ function onSearchResetClick() {
   elements.searchResetBtn.classList.add('is-hidden');
 }
 
-// <<<<render gallery by time>>>>
+// render gallery by time
 function onTimeOptionsClick(evt) {
   const currentOpt = evt.target.textContent;
   elements.timeInput.value = currentOpt;
   const currentValue = Number.parseInt(elements.timeInput.value);
-
-  console.log(evt.target);
-  // if (evt.target.textContent === elements.timeInput.value) {
-  //   return;
-  // }
   renderCardsOptions.params.page = 1;
   renderCardsOptions.params.time = `${currentValue}`;
   renderMain(renderCardsOptions);
@@ -88,7 +80,7 @@ function onIngrOptionsClick(evt) {
   renderMain(renderCardsOptions);
 }
 
-// <close list settings
+// close list settings
 elements.timeDropdown.onclick = function () {
   elements.timeDropdown.classList.toggle('active');
   document.addEventListener('click', onCloseTimeFilter);
@@ -149,12 +141,8 @@ function onCloseIngrFilter(evt) {
     toggleIngrMenu();
   }
 }
-// close list settings/>
 
-// FILTERS API
-
-// Country api and create markup=====>>>>>
-
+// Country api and create markup
 fetchAreas()
   .then(data => {
     let arrCountry = [...data];
@@ -178,10 +166,8 @@ function createAreasList(arr) {
 
     .join('');
 }
-// Country api and create markup<<<<<=====
 
-// Ingredients api and create markup=====>>>>>
-
+// Ingredients api and create markup
 fetchIngred()
   .then(data => {
     let arrIngred = [...data];
@@ -204,7 +190,6 @@ function createIngreedList(arr) {
     )
     .join('');
 }
-// Ingredients api and create markup<<<<<=====
 
 // Button reset
 elements.resetBtn.addEventListener('click', onResetBtnClick);

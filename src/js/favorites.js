@@ -1,5 +1,3 @@
-/** @format */
-
 import { Notify, Loading } from 'notiflix';
 import { fetchGetId } from './fetch-api';
 import { markupButtons, markupCards, cardFilterCategories } from './markup-favorites';
@@ -14,10 +12,10 @@ function reloadPageOnResize() {
 	}
 }
 
-export let countPage = 0;
-export let currentPage = 0;
-export let allCard = [];
-export const perPage = window.innerWidth > 767 ? 12 : 9;
+let countPage = 0;
+let currentPage = 0;
+let allCard = [];
+const perPage = window.innerWidth > 767 ? 12 : 9;
 
 const cardsFavorites = document.querySelector('.list_cards_favorites');
 const buttonPagination = document.querySelector('.pagination-buttons');
@@ -30,7 +28,7 @@ function readFavoritesCard() {
 	try {
 		favoritesCard = JSON.parse(localStorage.getItem('favorites'));
 	} catch (error) {
-		Notify.failure('Unable to load favorites. ' + error);
+		Notify.info('There are no recipes added to favorites.')
 	}
 	return favoritesCard;
 }
@@ -62,11 +60,11 @@ function markupCardArray() {
 			createButtonPagination(cards.length);
 			markupCards(allCard, 1, perPage);
 		})
-		.catch(error => Notify.failure('Unable to load favorites. ' + error.message))
+		.catch(() => Notify.info('There are no recipes added to favorites.'))
 		.finally(Loading.remove(1000));
 }
 
-export function cardInHtml(cards) {
+function cardInHtml(cards) {
 	let markupCardsArray = [];
 	cards
 		? cards.forEach(card => {
@@ -103,7 +101,7 @@ function createButtonPagination(cards) {
 	const perPageBtn = perPage === 9 ? 3 : 4;
 	const countBtns = countPage >= perPageBtn ? perPageBtn : countPage;
 	let rangeBtns = '';
-	for (let i = 1; i <= countBtns; i++) {
+	for (let i = 1; i <= countBtns; i += 1) {
 		i !== perPageBtn
 			? (rangeBtns += `<button class="pagination-btn btn-js btn-pg" data-id="${i}" data-value="${i}">${i}</button>`)
 			: (rangeBtns += `<button class="pagination-btn btn-js btn-pg" data-id="${i}" data-value="${i}">...</button>`);
@@ -204,12 +202,12 @@ function onClickBtn({ currentTarget }) {
 	}
 }
 
-export function changeCountPage(cards) {
+function changeCountPage(cards) {
 	countPage = Math.ceil(cards / perPage);
 	createButtonPagination(cards);
 }
 
-export function changeCurrentPage(page) {
+function changeCurrentPage(page) {
 	currentPage = page;
 }
 
@@ -246,11 +244,4 @@ function changeTextBtn(page) {
 	changeValueBtn(currentPage);
 }
 
-// function changeValue(num) {
-// 	const btnPg = buttonPagination.querySelectorAll('.btn-pg');
-// 	btnPg.forEach(btn => {
-// 		btnPg.forEach(btn => {
-// 			btn.dataset.value = Number(btn.dataset.value) + num;
-// 		});
-// 	});
-// }
+export { cardInHtml, changeCountPage, changeCurrentPage, allCard, perPage }

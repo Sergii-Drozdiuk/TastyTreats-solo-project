@@ -1,5 +1,3 @@
-/** @format */
-
 import { updateRating } from './fetch-api';
 import Notiflix from 'notiflix';
 
@@ -73,7 +71,7 @@ function removeListeners() {
 	refs.form.removeEventListener('submit', handleSubmit);
 }
 
-export function createListeners(id) {
+function createListeners(id) {
 	refs = {
 		openModalBtn: document.querySelector('#modal-rating-opener'),
 		closeModalBtn: document.querySelector('#modal-rating-closer'),
@@ -100,3 +98,5 @@ export function createListeners(id) {
 
 	refs.form.addEventListener('submit', async e => handleSubmit(e, id));
 }
+
+export { createListeners }

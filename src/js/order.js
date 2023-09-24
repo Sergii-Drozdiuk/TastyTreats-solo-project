@@ -1,5 +1,3 @@
-/** @format */
-
 import { makeOrder } from './fetch-api';
 import Inputmask from 'inputmask';
 import Notiflix from 'notiflix';
