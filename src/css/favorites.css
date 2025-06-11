@@ -95,10 +95,6 @@
   fill: var(--color-pagintion);
 }
 
-.pagination-btn {
-  cursor: pointer;
-}
-
 .range-btns.cont {
   margin-left: 14px;
   margin-right: 14px;

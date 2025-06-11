@@ -108,8 +108,8 @@ function createButtonPagination(cards) {
 	}
 	const iconRightPath = `${sprite}#icon-small-right`;
 	const iconLeftPath = `${sprite}#icon-small-left`;
-	const arrowButtons = ` <div class="back-buttons additional">
-      <button class="pagination-btn arrow-btn btn-js" data-id="5">
+	let arrowButtons = ` <div class="back-buttons additional">
+      <button class="pagination-btn arrow-btn back-arrow-btn-js btn-js" data-id="5">
          <div class="left-arrow-icon double-arrow">
            <svg class="icon-double-arrow-one" width="24" height="24">
           <use href="${iconLeftPath}"></use>
@@ -119,7 +119,7 @@ function createButtonPagination(cards) {
         </svg>
          </div>
         </svg></button
-      ><button class="pagination-btn arrow-btn btn-js" data-id="6">
+      ><button class="pagination-btn arrow-btn back-arrow-btn-js btn-js" data-id="6">
         <svg class="left-arrow-icon" width="24" height="24">
           <use href="${iconLeftPath}"></use>
         </svg>
@@ -224,8 +224,6 @@ function changeTextBtn(page) {
 	const btnPg = buttonPagination.querySelectorAll('.btn-pg');
 	const pgBtn = window.innerWidth > 767 ? 4 : 3;
 	currentPage = Number(page);
-
-	console.log(currentPage);
 
 	btnPg[0].textContent = btnPg[1].dataset.value > 2 ? '...' : '1';
 	btnPg[1].textContent = btnPg[1].dataset.value;
