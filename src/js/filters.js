@@ -69,7 +69,7 @@ function onCountryOptionsClick(evt) {
   renderMain(renderCardsOptions);
 }
 
-// render gallery by ingr
+// render gallery by ingredient
 function onIngrOptionsClick(evt) {
   const currentOpt = evt.target.textContent;
   elements.ingrInput.value = currentOpt;

@@ -14,22 +14,27 @@ const ref = {
 ref.cardsFavorites.addEventListener('click', onOpenModalWindow);
 
 function markupButtons(cards) {
-	if (cards.length === 0) {
+	if (!cards.length) {
 		ref.categoriesFavorites.innerHTML = '';
 		return;
 	}
-	const buttons = cards.map(
-		card =>
-			`<li><button class="main-button recipe-item-see category-btn" type="button">${card}</button></li>`
-	);
-	const activeClass = activeCategories.size === 0 ? 'green-button' : null;
-	buttons.unshift(
-		`<li><button id="allcat" class="main-button recipe-item-see category-btn ${activeClass}" type="button">All categories</button></li>`
-	);
-	ref.categoriesFavorites.innerHTML = buttons.join('');
+
+	ref.categoriesFavorites.replaceWith(ref.categoriesFavorites.cloneNode(false));
+	ref.categoriesFavorites = document.querySelector('.favorites_categories');
+
+	const allBtnClass = activeCategories.size === 0 ? 'green-button' : '';
+	const buttonsHTML = [
+		`<li><button id="allcat" class="main-button recipe-item-see category-btn ${allBtnClass}" type="button">All categories</button></li>`,
+		...cards.map(card =>
+			`<li><button class="main-button recipe-item-see category-btn ${activeCategories.has(card) ? 'green-button' : ''}" type="button">${card}</button></li>`
+		)
+	];
+
+	ref.categoriesFavorites.innerHTML = buttonsHTML.join('');
 	ref.categoriesFavorites.addEventListener('click', addFilter);
 	ref.allCategories = document.querySelector('#allcat');
 }
+
 
 function markupCards(cards, page, perPage) {
 	const start = (page - 1) * perPage;
@@ -50,47 +55,34 @@ function markupCards(cards, page, perPage) {
 }
 
 function addFilter({ target }) {
-	if (!target.classList.contains('main-button')) {
-		return;
-	}
+	if (!target.classList.contains('main-button')) return;
 	changeCurrentPage(1);
-	if (target === ref.allCategories) {
-		const cards = ref.cardsFavorites.children;
-		const buttons = ref.categoriesFavorites.children;
-		for (let i = 1; i < buttons.length; i++) {
-			buttons[i].children[0].classList.remove('green-button');
-		}
-		for (let i = 0; i < cards.length; i++) {}
-		target.classList.add('green-button');
+	const isAllCategories = target === ref.allCategories;
+	const categoryButtons = ref.categoriesFavorites.querySelectorAll('.main-button:not(#allcat)');
+
+	if (isAllCategories) {
+		ref.allCategories.classList.add('green-button');
+		categoryButtons.forEach(btn => btn.classList.remove('green-button'));
 		activeCategories.clear();
 		cardFilterCategories(1);
 		return;
 	}
-	if (!activeCategories.has(target.textContent)) {
-		activeCategories.add(target.textContent);
-		target.classList.add('green-button');
-		ref.allCategories.classList.remove('green-button');
-	} else {
-		activeCategories.delete(target.textContent);
-		target.classList.remove('green-button');
-	}
-	if (!activeCategories.size) {
-		ref.allCategories.classList.add('green-button');
-	}
-	cardFilterCategories(1);
-	cardFavoritesFilter();
-}
 
-function cardFavoritesFilter() {
-	const allButtonsActive = ref.categoriesFavorites.querySelectorAll('.green-button');
-	const allButton = ref.categoriesFavorites.children;
-	if (allButton.length - 1 === allButtonsActive.length) {
+	if (target.classList.contains('green-button')) {
+		target.classList.remove('green-button');
 		ref.allCategories.classList.add('green-button');
 		activeCategories.clear();
-		for (const card of allButtonsActive) {
-			card.classList.remove('green-button');
-		}
+		cardFilterCategories(1);
+		markupButtons([...new Set(allCard.map(card => card.category))]);
+		return;
 	}
+
+	categoryButtons.forEach(btn => btn.classList.remove('green-button'));
+	target.classList.add('green-button');
+	ref.allCategories.classList.remove('green-button');
+	activeCategories.clear();
+	activeCategories.add(target.textContent);
+	cardFilterCategories(1);
 }
 
 function cardFilterCategories(page) {
